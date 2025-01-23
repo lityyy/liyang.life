@@ -13,18 +13,26 @@ import mime from 'mime'
 const blogs = allBlogs as unknown as Blog[]
 const snippets = allSnippets as unknown as Snippet[]
 const RSS_PAGE = 'feed.xml'
-
+const pathPrefixMap = {
+  Snippet: '/snippets/',
+  Blog: '/blog/',
+  // 可以根据需要添加其他类型和路径前缀，例如:
+  // 'Article': '/articles/',
+  // 'Podcast': '/podcasts/',
+}
 function generateRssItem(item: Blog | Snippet) {
   const { siteUrl, author } = SITE_METADATA
   const { email } = AUTHOR_INFO
+  // 使用类型映射表获取路径前缀，如果类型不在映射表中，则使用默认路径 (例如 '/')
+  const pathPrefix = pathPrefixMap[item.type] || '/' //  '/' 作为默认路径，可以根据你的项目调整
   return `
 		<item>
 			<guid>${siteUrl}/blog/${item.slug}</guid>
 			<title>${escape(item.title)}</title>
-			<link>${siteUrl}/blog/${item.slug}</link>
+			<link>${siteUrl}${pathPrefix}${item.slug}</link>
 			${item.summary ? `<description>${escape(item.summary)}</description>` : ''}
 			<pubDate>${new Date(item.date).toUTCString()}</pubDate>
-			<author>${email} (${author})</author>
+			<author>${author}</author>
 			${item.tags?.length ? item.tags?.map((t) => `<category>${t}</category>`).join('') : ''}
       ${item.images?.length ? item.images?.map((i) => `<enclosure url="${siteUrl}${i}" length="0" type="${mime.getType(i)}" />`).join('') : ''}
 		</item>
@@ -38,11 +46,11 @@ function generateRss(items: (Blog | Snippet)[], page = RSS_PAGE) {
 		<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 			<channel>
 				<title>${escape(title)}</title>
-				<link>${siteUrl}/blog</link>
+				<link>${siteUrl}</link>
 				<description>${escape(description)}</description>
 				<language>${language}</language>
-				<managingEditor>${email} (${author})</managingEditor>
-				<webMaster>${email} (${author})</webMaster>
+				<managingEditor>${author}</managingEditor>
+				<webMaster>${author}</webMaster>
 				<lastBuildDate>${new Date(items[0].date).toUTCString()}</lastBuildDate>
 				<atom:link href="${siteUrl}/${page}" rel="self" type="application/rss+xml"/>
 				${items.map((item) => generateRssItem(item)).join('')}
