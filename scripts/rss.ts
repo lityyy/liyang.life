@@ -27,7 +27,7 @@ function generateRssItem(item: Blog | Snippet) {
   const pathPrefix = pathPrefixMap[item.type] || '/' //  '/' 作为默认路径，可以根据你的项目调整
   return `
 		<item>
-			<guid>${siteUrl}/blog/${item.slug}</guid>
+			<guid>${siteUrl}${pathPrefix}${item.slug}</guid>
 			<title>${escape(item.title)}</title>
 			<link>${siteUrl}${pathPrefix}${item.slug}</link>
 			${item.summary ? `<description>${escape(item.summary)}</description>` : ''}
