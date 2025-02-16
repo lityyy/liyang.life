@@ -11,7 +11,7 @@ export const AUTHOR_INFO = {
   },
   work: {
     company: '',
-    occupation: 'Front-End Engineer',
+    occupation: 'Back-End Engineer',
     location: 'Zhengzhou, China',
     website: '/',
   },
