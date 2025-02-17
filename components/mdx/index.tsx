@@ -6,6 +6,7 @@ import { Image, Zoom, type ImageProps } from '~/components/ui/image'
 import { Link } from '~/components/ui/link'
 import { Twemoji } from '~/components/ui/twemoji'
 import { TableWrapper } from './table-wrapper'
+import { NeoDB, NeoDBManual } from './neodb'
 
 export const MDX_COMPONENTS: MDXComponents = {
   Image: ({ alt, src, ...rest }: ImageProps) => {
@@ -21,4 +22,6 @@ export const MDX_COMPONENTS: MDXComponents = {
   pre: Pre,
   table: TableWrapper,
   BlogNewsletterForm,
+  NeoDB: NeoDB,
+  NeoDBManual: NeoDBManual,
 }

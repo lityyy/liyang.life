@@ -69,6 +69,7 @@ module.exports = () => {
     reactStrictMode: true,
     pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
     images: {
+      domains: ['neodb.social'],
       remotePatterns: [
         {
           protocol: 'https',
@@ -81,6 +82,11 @@ module.exports = () => {
         {
           protocol: 'https',
           hostname: 'm.media-amazon.com', // IMDB movie posters
+        },
+        {
+          protocol: 'https',
+          hostname: 'neodb.social',
+          pathname: '/**',
         },
       ],
       unoptimized,
