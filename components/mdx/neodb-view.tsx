@@ -55,10 +55,25 @@ export function NeoDBView({
             <div className="mb-1 flex items-center">
               {rating !== undefined && (
                 <>
-                  <div className="relative mr-2 h-4 w-20 bg-[url('data:image/svg+xml;base64,PHN2Z...')]">
+                  <div className="relative mr-2 h-4 w-20">
+                    {/* 空星背景 */}
                     <div
-                      className="absolute left-0 h-4 bg-[url('data:image/svg+xml;base64,PHN2Z...')]"
-                      style={{ width: `${rating * 10}%` }}
+                      className="absolute left-0 h-4 w-full"
+                      style={{
+                        backgroundImage: `url(${STAR_EMPTY})`,
+                        backgroundSize: 'contain',
+                        backgroundRepeat: 'repeat-x',
+                      }}
+                    />
+                    {/* 实心星评分 */}
+                    <div
+                      className="absolute left-0 h-4"
+                      style={{
+                        width: `${rating * 10}%`,
+                        backgroundImage: `url(${STAR_FULL})`,
+                        backgroundSize: 'contain',
+                        backgroundRepeat: 'repeat-x',
+                      }}
                     />
                   </div>
                   <span className="text-sm">{rating}</span>
