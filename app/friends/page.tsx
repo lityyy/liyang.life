@@ -7,11 +7,26 @@ import friends from '~/json/friends.json' assert { type: 'json' }
 // const MAX_POSTS_DISPLAY = 5
 // const MAX_SNIPPETS_DISPLAY = 6
 
+// 定义朋友数据的接口
+interface Friend {
+  type: 'friend' | 'techStar'
+  name: string
+  slogan: string
+  imgSrc: string
+  url: string
+  link?: string
+  avatar?: string
+  description?: string
+}
+
+// 断言 friends 的类型
+const typedFriends = friends as Friend[]
+
 export const metadata = genPageMetadata({ title: 'My friends and tech bloggers' })
 
 export default async function HomePage() {
-  const friendsList = friends.filter((f) => f.type === 'friend')
-  const bloggersList = friends.filter((f) => f.type === 'techStar')
+  const friendsList = typedFriends.filter((f) => f.type === 'friend')
+  const bloggersList = typedFriends.filter((f) => f.type === 'techStar')
   return (
     // <Home
     //   posts={allCoreContent(sortPosts(allBlogs)).slice(0, MAX_POSTS_DISPLAY)}
