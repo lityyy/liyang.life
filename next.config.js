@@ -69,7 +69,7 @@ module.exports = () => {
     reactStrictMode: true,
     pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
     images: {
-      domains: ['neodb.social'],
+      domains: ['neodb.social', 'images.liyang.life'],
       remotePatterns: [
         {
           protocol: 'https',
