@@ -48,6 +48,15 @@ export function NeoDB({ url }: NeoDBProps) {
           throw new Error(`API request failed: ${response.status}`)
         }
         const data = await response.json()
+
+        // 处理 cover_image_url，替换为代理地址
+        if (data.cover_image_url && data.cover_image_url.startsWith('https://neodb.social')) {
+          data.cover_image_url = data.cover_image_url.replace(
+            'https://neodb.social',
+            'https://proxy.liyang.life/https://neodb.social'
+          )
+        }
+
         setData(data)
       } catch (err) {
         console.error('Failed to fetch NeoDB data:', err)
@@ -80,10 +89,19 @@ export function NeoDB({ url }: NeoDBProps) {
 }
 
 export function NeoDBManual({ url, image, title, rate, brief, tag }: NeoDBManualProps) {
+  // 处理 image 地址，替换为代理地址
+  let proxyImage = image
+  if (image && image.startsWith('https://neodb.social')) {
+    proxyImage = image.replace(
+      'https://neodb.social',
+      'https://proxy.liyang.life/https://neodb.social'
+    )
+  }
+
   return (
     <NeoDBView
       url={url}
-      coverImage={image}
+      coverImage={proxyImage} // 使用处理后的代理地址
       title={title}
       rating={Number(rate)}
       brief={brief}
