@@ -37,10 +37,10 @@ export function NeoDB({ url }: NeoDBProps) {
         if (url.match(/^.*neodb\.social\/.*/)) {
           // 提取路径部分
           const path = url.replace(/.*neodb.social\/(.*)/, '$1')
-          apiUrl = `https://neodb.social/api/${path}`
+          apiUrl = `https://proxy.liyang.life/https://neodb.social/api/${path}`
         } else {
           // 外部链接使用 catalog/fetch
-          apiUrl = `https://neodb.social/api/catalog/fetch?url=${encodeURIComponent(url)}`
+          apiUrl = `https://proxy.liyang.life/https://neodb.social/api/catalog/fetch?url=${encodeURIComponent(url)}`
         }
 
         const response = await fetch(apiUrl)
